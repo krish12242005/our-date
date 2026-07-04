@@ -3,18 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You Go On A Date With Me?</title>
+    <title>Will You Go On A Date With Me? ✨</title>
+    <!-- Google Fonts integration for premium look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
-            --card-bg: rgba(255, 255, 255, 0.4);
-            --text-color: #3e3846;
-            --btn-primary: #21325e;
-            --btn-secondary: rgba(255, 255, 255, 0.6);
+            /* Premium Romantic Pinkish-Lavender Soft Gradient */
+            --bg-gradient: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 50%, #fbc2eb 100%);
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 182, 193, 0.6);
+            --text-dark: #4a354f;
+            --accent-pink: #d87093;
+            --btn-primary: #6c4f77;
+            --btn-hover: #523a5b;
+            --shadow-soft: 0 12px 40px rgba(216, 112, 147, 0.15);
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
             background: var(--bg-gradient);
             margin: 0;
             padding: 0;
@@ -22,193 +31,278 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            color: var(--text-color);
-            overflow-x: hidden;
+            color: var(--text-dark);
+            overflow: hidden;
+            position: relative;
         }
 
-        .container {
+        /* Background floating hearts animation container */
+        .hearts-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 450px;
-            padding: 30px;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .heart-particle {
+            position: absolute;
+            bottom: -50px;
+            font-size: 1.5rem;
+            color: rgba(216, 112, 147, 0.4);
+            animation: floatUp 8s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Main Premium Glass Container */
+        .container {
+            width: 90%;
+            max-width: 440px;
+            padding: 40px 30px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            box-shadow: var(--shadow-soft);
             text-align: center;
+            z-index: 10;
+            position: relative;
+            box-sizing: border-box;
         }
 
         .step {
             display: none;
-            animation: fadeIn 0.5s ease-in-out forwards;
+            animation: smoothFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         .step.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes smoothFadeIn {
+            from { opacity: 0; transform: scale(0.96) translateY(15px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
+        /* Elegant Headings Style */
         h1 {
-            font-size: 2rem;
-            margin-bottom: 5px;
-            font-weight: 500;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin: 0 0 10px 0;
+            color: #3b2443;
         }
 
         .subtitle {
             font-size: 0.8rem;
-            letter-spacing: 2px;
+            font-weight: 500;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            margin-bottom: 30px;
-            opacity: 0.8;
+            margin-bottom: 35px;
+            color: var(--accent-pink);
         }
 
-        /* Buttons styling */
+        /* Buttons Aesthetic styling */
         .btn-group {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 18px;
+            margin-top: 25px;
         }
 
         .btn {
-            padding: 12px 35px;
-            border-radius: 25px;
-            border: 1px solid rgba(0,0,0,0.1);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            padding: 14px 40px;
+            border-radius: 50px;
+            border: none;
             cursor: pointer;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            outline: none;
         }
 
         .btn-yes {
-            background-color: var(--btn-primary);
+            background: linear-gradient(135deg, var(--btn-primary) 0%, #523a5b 100%);
             color: white;
+            box-shadow: 0 5px 15px rgba(108, 79, 119, 0.3);
         }
 
         .btn-no {
-            background-color: var(--btn-secondary);
-            color: var(--text-color);
+            background-color: rgba(255, 255, 255, 0.7);
+            color: var(--text-dark);
+            border: 1px solid rgba(216, 112, 147, 0.2);
         }
 
         .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 79, 119, 0.4);
         }
 
-        /* Food Grid Styling */
+        .btn-no:hover {
+            box-shadow: 0 8px 20px rgba(216, 112, 147, 0.15);
+        }
+
+        /* Premium Food Grid Visuals */
         .grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 12px;
+            margin-bottom: 30px;
         }
 
         .grid-item {
-            background: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.5);
-            padding: 15px 10px;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            padding: 16px 8px;
+            border-radius: 18px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.9rem;
+            transition: all 0.25s ease;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .grid-item:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: scale(1.03);
+            border-color: var(--accent-pink);
         }
 
         .grid-item.selected {
-            background: var(--btn-primary);
+            background: linear-gradient(135deg, #a770ef 0%, #cf8bf3 50%, #fdb99b 100%);
             color: white;
-            border-color: var(--btn-primary);
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(207, 139, 243, 0.4);
         }
 
         .grid-item .icon {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
         }
 
-        /* Time option list */
+        /* Time option list style */
         .time-option {
-            background: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.5);
-            padding: 15px 20px;
-            border-radius: 15px;
-            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            padding: 16px 24px;
+            border-radius: 18px;
+            margin-bottom: 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
+            font-weight: 500;
+        }
+
+        .time-option:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateX(3px);
         }
 
         .time-option.selected {
-            background: var(--btn-primary);
+            background: linear-gradient(135deg, var(--btn-primary) 0%, #4a354f 100%);
             color: white;
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(108, 79, 119, 0.3);
         }
 
-        /* Summary card */
+        /* Summary Output Visuals */
         .summary-box {
-            background: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.6);
-            padding: 25px;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            padding: 28px;
+            border-radius: 24px;
             text-align: left;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
 
         .summary-item {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
+        }
+        .summary-item:last-child {
+            margin-bottom: 0;
         }
         .summary-label {
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.7;
+            letter-spacing: 2px;
+            color: var(--accent-pink);
+            font-weight: 600;
+            margin-bottom: 4px;
         }
         .summary-val {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 500;
+            color: #3b2443;
         }
 
-        /* Custom simple date picker layout */
+        /* Date input style customization */
         input[type="date"] {
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.5);
-            background: var(--card-bg);
+            font-family: 'Poppins', sans-serif;
+            padding: 14px;
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.7);
             font-size: 1.1rem;
-            color: var(--text-color);
+            color: var(--text-dark);
             outline: none;
-            width: 80%;
+            width: 85%;
             text-align: center;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+        }
+        input[type="date"]:focus {
+            border-color: var(--btn-primary);
+            box-shadow: 0 0 10px rgba(108, 79, 119, 0.15);
         }
     </style>
 </head>
 <body>
 
+<!-- Animated Heart Container Elements -->
+<div class="hearts-bg" id="heartsBg"></div>
+
 <div class="container">
     
-    <!-- STEP 1: PROPOSAL (Ref: 96086.jpg) -->
+    <!-- STEP 1: THE PROPOSAL -->
     <div class="step active" id="step1">
-        <div style="font-size: 1.5rem; margin-bottom: 10px;">❤️</div>
+        <div style="font-size: 2rem; margin-bottom: 12px; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));">💝</div>
         <h1>Will you go on a date with me?</h1>
         <div class="subtitle">A question worth asking</div>
         <div class="btn-group">
             <button class="btn btn-yes" onclick="nextStep(2)">Yes</button>
-            <button class="btn btn-no" id="noBtn" onmouseover="dodgeButton()">No</button>
+            <button class="btn btn-no" id="noBtn" onmouseover="dodgeButton()" onclick="dodgeButton()">No</button>
         </div>
     </div>
 
-    <!-- STEP 2: DATE PICKER (Ref: 96087.jpg) -->
+    <!-- STEP 2: DYNAMIC DATE PICKER -->
     <div class="step" id="step2">
-        <div style="font-size: 1.5rem; margin-bottom: 10px;">📅</div>
+        <div style="font-size: 2rem; margin-bottom: 12px;">🌸</div>
         <h1>When are you free?</h1>
         <div class="subtitle">Pick a date</div>
-        <input type="date" id="dateInput" min="2026-01-01">
+        <input type="date" id="dateInput">
         <div class="btn-group">
-            <button class="btn btn-yes" onclick="saveDate()">Next</button>
+            <button class="btn btn-yes" onclick="saveDate()">Next ✨</button>
         </div>
     </div>
 
-    <!-- STEP 3: TIME PICKER (Ref: 96088.jpg) -->
+    <!-- STEP 3: DYNAMIC TIME PICKER -->
     <div class="step" id="step3">
-        <div style="font-size: 1.5rem; margin-bottom: 10px;">⏰</div>
+        <div style="font-size: 2rem; margin-bottom: 12px;">✨</div>
         <h1>What time?</h1>
         <div class="subtitle">Choose your hour</div>
         <div id="timeContainer">
@@ -217,14 +311,14 @@
             <div class="time-option" onclick="selectTime(this, '10:00 PM')"><span>Late Night</span> <span>10:00 PM</span></div>
         </div>
         <div class="btn-group">
-            <button class="btn btn-yes" onclick="saveTime()">Next</button>
+            <button class="btn btn-yes" onclick="saveTime()">Next ✨</button>
         </div>
     </div>
 
-    <!-- STEP 4: FOOD PICKER (Ref: 96091.jpg & 96090.jpg) -->
+    <!-- STEP 4: DYNAMIC MULTI-FOOD SELECTION -->
     <div class="step" id="step4">
         <h1>What are we feeling?</h1>
-        <div class="subtitle">Pick one or more</div>
+        <div class="subtitle">Pick one or more cravings</div>
         <div class="grid">
             <div class="grid-item" onclick="toggleFood(this, 'Sushi')"><span class="icon">🍣</span>Sushi</div>
             <div class="grid-item" onclick="toggleFood(this, 'Pasta')"><span class="icon">🍝</span>Pasta</div>
@@ -236,77 +330,94 @@
             <div class="grid-item" onclick="toggleFood(this, 'Burgers')"><span class="icon">🍔</span>Burgers</div>
             <div class="grid-item" onclick="toggleFood(this, 'Desserts')"><span class="icon">🍰</span>Desserts</div>
         </div>
-        <button class="btn btn-yes" onclick="generateSummary()">Let's Go ✨</button>
+        <button class="btn btn-yes" style="width: 80%;" onclick="generateSummary()">Let's Go ✨</button>
     </div>
 
-    <!-- STEP 5: FINAL SUMMARY (Ref: 96089.jpg) -->
+    <!-- STEP 5: THE GRAND FINALE -->
     <div class="step" id="step5">
+        <div style="font-size: 2.2rem; margin-bottom: 10px; animation: pulse 1.5s infinite;">❤️</div>
         <h1>It's a date.</h1>
         <div class="subtitle">Something wonderful awaits</div>
         <div class="summary-box">
             <div class="summary-item">
                 <div class="summary-label">When</div>
-                <div class="summary-val" id="finalDateTime">Saturday, June 20 at 7:00 PM</div>
+                <div class="summary-val" id="finalDateTime">Pending Date...</div>
             </div>
             <div class="summary-item">
                 <div class="summary-label">What we're having</div>
-                <div class="summary-val" id="finalFood">Biryani & Kebabs & Desserts</div>
+                <div class="summary-val" id="finalFood">Pending Treats...</div>
             </div>
         </div>
-        <div style="font-style: italic; font-size: 0.9rem; margin-bottom: 25px; opacity: 0.9;">
+        <div style="font-style: italic; font-size: 0.85rem; margin-bottom: 30px; color: #5c4a60; font-weight: 300; opacity: 0.9;">
             ✦ Every great love story has a first evening. This is ours.
         </div>
-        <button class="btn btn-yes" style="border-radius: 20px;" onclick="alert('Added to your calendar! 😉')">ADD TO CALENDAR</button>
+        <button class="btn btn-yes" style="border-radius: 18px; width: 90%; font-size: 0.9rem; letter-spacing: 1px;" onclick="alert('Yay! Automatically locked in your calendar! 😉')">ADD TO CALENDAR</button>
     </div>
 
 </div>
 
 <script>
-    // Global selections tracking
-    let selections = {
-        date: '',
-        time: '',
-        food: []
-    };
+    // Live Calendar Input constraints setups
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    document.getElementById('dateInput').min = `${yyyy}-${mm}-${dd}`;
+
+    // Generate Dynamic Floating Hearts Background
+    const heartsBg = document.getElementById('heartsBg');
+    const heartSymbols = ['❤️', '💖', '🌸', '💕', '✨'];
+    
+    for (let i = 0; i < 20; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart-particle');
+        heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDelay = Math.random() * 6 + 's';
+        heart.style.fontSize = (Math.random() * 1.2 + 0.8) + 'rem';
+        // Random horizontal drift speeds
+        heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+        heartsBg.appendChild(heart);
+    }
+
+    // Interactive Flow Logics
+    let selections = { date: '', time: '', food: [] };
 
     function nextStep(stepNum) {
         document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
         document.getElementById('step' + stepNum).classList.add('active');
     }
 
-    // Step 1: No button funny dodge logic
     function dodgeButton() {
         const btn = document.getElementById('noBtn');
-        const x = Math.random() * (window.innerWidth - btn.clientWidth - 50);
-        const y = Math.random() * (window.innerHeight - btn.clientHeight - 50);
-        btn.style.position = 'absolute';
-        btn.style.left = x + 'px';
-        btn.style.top = y + 'px';
+        // Elegant fluid button runner
+        const pad = 40;
+        const x = Math.random() * (window.innerWidth - btn.clientWidth - pad);
+        const y = Math.random() * (window.innerHeight - btn.clientHeight - pad);
+        btn.style.position = 'fixed';
+        btn.style.left = Math.max(pad, x) + 'px';
+        btn.style.top = Math.max(pad, y) + 'px';
     }
 
-    // Step 2: Date
     function saveDate() {
         const dateVal = document.getElementById('dateInput').value;
-        if(!dateVal) { alert('Please select a date, machii!'); return; }
-        
-        // Format date beautifully
-        const options = { weekday: 'long', month: 'long', day: 'numeric' };
+        if(!dateVal) { alert('Machi, oru date select pannunga! 😉'); return; }
+        const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
         selections.date = new Date(dateVal).toLocaleDateString('en-US', options);
         nextStep(3);
     }
 
-    // Step 3: Time
     function selectTime(element, timeStr) {
         document.querySelectorAll('.time-option').forEach(opt => opt.classList.remove('selected'));
         element.classList.add('selected');
         selections.time = timeStr;
     }
+
     function saveTime() {
-        if(!selections.time) { alert('Time select pannunga boss!'); return; }
+        if(!selections.time) { alert('Machi, perfect-ana time pick pannunga!'); return; }
         nextStep(4);
     }
 
-    // Step 4: Food
     function toggleFood(element, foodName) {
         element.classList.toggle('selected');
         if(selections.food.includes(foodName)) {
@@ -316,13 +427,12 @@
         }
     }
 
-    // Step 5: Final Screen Generation
     function generateSummary() {
-        if(selections.food.length === 0) { alert('At least oru dish-avadhu pick pannunga!'); return; }
+        if(selections.food.length === 0) { alert('Sapida edhavadhu items pick pannunga boss! 🍕'); return; }
         
         document.getElementById('finalDateTime').innerText = `${selections.date} at ${selections.time}`;
+        // Formatting list cleanly with ampersands
         document.getElementById('finalFood').innerText = selections.food.join(' & ');
-        
         nextStep(5);
     }
 </script>
