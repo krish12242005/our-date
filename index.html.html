@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Go On A Date With Me?</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            --card-bg: rgba(255, 255, 255, 0.4);
+            --text-color: #3e3846;
+            --btn-primary: #21325e;
+            --btn-secondary: rgba(255, 255, 255, 0.6);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        /* Buttons styling */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 35px;
+            border-radius: 25px;
+            border: 1px solid rgba(0,0,0,0.1);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-yes {
+            background-color: var(--btn-primary);
+            color: white;
+        }
+
+        .btn-no {
+            background-color: var(--btn-secondary);
+            color: var(--text-color);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Food Grid Styling */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .grid-item {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.5);
+            padding: 15px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .grid-item.selected {
+            background: var(--btn-primary);
+            color: white;
+            border-color: var(--btn-primary);
+        }
+
+        .grid-item .icon {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Time option list */
+        .time-option {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.5);
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .time-option.selected {
+            background: var(--btn-primary);
+            color: white;
+        }
+
+        /* Summary card */
+        .summary-box {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.6);
+            padding: 25px;
+            border-radius: 20px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .summary-item {
+            margin-bottom: 15px;
+        }
+        .summary-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+        .summary-val {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Custom simple date picker layout */
+        input[type="date"] {
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.5);
+            background: var(--card-bg);
+            font-size: 1.1rem;
+            color: var(--text-color);
+            outline: none;
+            width: 80%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- STEP 1: PROPOSAL (Ref: 96086.jpg) -->
+    <div class="step active" id="step1">
+        <div style="font-size: 1.5rem; margin-bottom: 10px;">❤️</div>
+        <h1>Will you go on a date with me?</h1>
+        <div class="subtitle">A question worth asking</div>
+        <div class="btn-group">
+            <button class="btn btn-yes" onclick="nextStep(2)">Yes</button>
+            <button class="btn btn-no" id="noBtn" onmouseover="dodgeButton()">No</button>
+        </div>
+    </div>
+
+    <!-- STEP 2: DATE PICKER (Ref: 96087.jpg) -->
+    <div class="step" id="step2">
+        <div style="font-size: 1.5rem; margin-bottom: 10px;">📅</div>
+        <h1>When are you free?</h1>
+        <div class="subtitle">Pick a date</div>
+        <input type="date" id="dateInput" min="2026-01-01">
+        <div class="btn-group">
+            <button class="btn btn-yes" onclick="saveDate()">Next</button>
+        </div>
+    </div>
+
+    <!-- STEP 3: TIME PICKER (Ref: 96088.jpg) -->
+    <div class="step" id="step3">
+        <div style="font-size: 1.5rem; margin-bottom: 10px;">⏰</div>
+        <h1>What time?</h1>
+        <div class="subtitle">Choose your hour</div>
+        <div id="timeContainer">
+            <div class="time-option" onclick="selectTime(this, '7:00 PM')"><span>Evening</span> <span>7:00 PM</span></div>
+            <div class="time-option" onclick="selectTime(this, '8:30 PM')"><span>Night</span> <span>8:30 PM</span></div>
+            <div class="time-option" onclick="selectTime(this, '10:00 PM')"><span>Late Night</span> <span>10:00 PM</span></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-yes" onclick="saveTime()">Next</button>
+        </div>
+    </div>
+
+    <!-- STEP 4: FOOD PICKER (Ref: 96091.jpg & 96090.jpg) -->
+    <div class="step" id="step4">
+        <h1>What are we feeling?</h1>
+        <div class="subtitle">Pick one or more</div>
+        <div class="grid">
+            <div class="grid-item" onclick="toggleFood(this, 'Sushi')"><span class="icon">🍣</span>Sushi</div>
+            <div class="grid-item" onclick="toggleFood(this, 'Pasta')"><span class="icon">🍝</span>Pasta</div>
+            <div class="grid-item" onclick="toggleFood(this, 'Pizza')"><span class="icon">🍕</span>Pizza</div>
+            <div class="grid-item" onclick="toggleFood(this, 'Biryani')"><span class="icon">🍲</span>Biryani</div>
+            <div class="grid-item" onclick="toggleFood(this, 'Kebabs')"><span class="icon">🍢</span>Kebabs</div>
+            <div class="grid-item" onclick="toggleFood(this, 'Tacos')"><span class="icon">🌮</span>Tacos</div>
+            <div class="grid-item" onclick="toggleFood(this, 'Ramen')"><span class="icon">🍜</span>Ramen</div>
+            <div class="grid-item" onclick="toggleFood(this, 'Burgers')"><span class="icon">🍔</span>Burgers</div>
+            <div class="grid-item" onclick="toggleFood(this, 'Desserts')"><span class="icon">🍰</span>Desserts</div>
+        </div>
+        <button class="btn btn-yes" onclick="generateSummary()">Let's Go ✨</button>
+    </div>
+
+    <!-- STEP 5: FINAL SUMMARY (Ref: 96089.jpg) -->
+    <div class="step" id="step5">
+        <h1>It's a date.</h1>
+        <div class="subtitle">Something wonderful awaits</div>
+        <div class="summary-box">
+            <div class="summary-item">
+                <div class="summary-label">When</div>
+                <div class="summary-val" id="finalDateTime">Saturday, June 20 at 7:00 PM</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-label">What we're having</div>
+                <div class="summary-val" id="finalFood">Biryani & Kebabs & Desserts</div>
+            </div>
+        </div>
+        <div style="font-style: italic; font-size: 0.9rem; margin-bottom: 25px; opacity: 0.9;">
+            ✦ Every great love story has a first evening. This is ours.
+        </div>
+        <button class="btn btn-yes" style="border-radius: 20px;" onclick="alert('Added to your calendar! 😉')">ADD TO CALENDAR</button>
+    </div>
+
+</div>
+
+<script>
+    // Global selections tracking
+    let selections = {
+        date: '',
+        time: '',
+        food: []
+    };
+
+    function nextStep(stepNum) {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('step' + stepNum).classList.add('active');
+    }
+
+    // Step 1: No button funny dodge logic
+    function dodgeButton() {
+        const btn = document.getElementById('noBtn');
+        const x = Math.random() * (window.innerWidth - btn.clientWidth - 50);
+        const y = Math.random() * (window.innerHeight - btn.clientHeight - 50);
+        btn.style.position = 'absolute';
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+    }
+
+    // Step 2: Date
+    function saveDate() {
+        const dateVal = document.getElementById('dateInput').value;
+        if(!dateVal) { alert('Please select a date, machii!'); return; }
+        
+        // Format date beautifully
+        const options = { weekday: 'long', month: 'long', day: 'numeric' };
+        selections.date = new Date(dateVal).toLocaleDateString('en-US', options);
+        nextStep(3);
+    }
+
+    // Step 3: Time
+    function selectTime(element, timeStr) {
+        document.querySelectorAll('.time-option').forEach(opt => opt.classList.remove('selected'));
+        element.classList.add('selected');
+        selections.time = timeStr;
+    }
+    function saveTime() {
+        if(!selections.time) { alert('Time select pannunga boss!'); return; }
+        nextStep(4);
+    }
+
+    // Step 4: Food
+    function toggleFood(element, foodName) {
+        element.classList.toggle('selected');
+        if(selections.food.includes(foodName)) {
+            selections.food = selections.food.filter(f => f !== foodName);
+        } else {
+            selections.food.push(foodName);
+        }
+    }
+
+    // Step 5: Final Screen Generation
+    function generateSummary() {
+        if(selections.food.length === 0) { alert('At least oru dish-avadhu pick pannunga!'); return; }
+        
+        document.getElementById('finalDateTime').innerText = `${selections.date} at ${selections.time}`;
+        document.getElementById('finalFood').innerText = selections.food.join(' & ');
+        
+        nextStep(5);
+    }
+</script>
+
+</body>
+</html>
